@@ -11,13 +11,8 @@ const Dashboard = () => {
   
   return (
     <>
-      <h1>This is our Dashboard</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis enim
-        repudiandae quas voluptate deleniti odio facilis. Expedita sapiente
-        architecto sit voluptates iure. Cum nesciunt inventore beatae velit
-        voluptatibus aut aspernatur.
-      </p>
+      <h1 className="text-5xl text-center">This is our Dashboard</h1>
+      <img className="" src="https://www.bootstrapdash.com/wp-content/uploads/2019/05/Screenshot_2019-05-21-Fily-Admin1.png" alt="" />
     </>
   );
 };
