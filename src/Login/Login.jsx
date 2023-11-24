@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import delay from "delay";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Login = () => {
+  const {setUser} = useContext(AuthContext)
 
   const navigate = useNavigate();
 
@@ -33,11 +35,11 @@ const Login = () => {
       .then(async (result) => {
           // console.log(result);
           await delay(900)
-          // setFormData({
-          //   email: "",
-          //   password: "",
-          // });
-          // await delay(1500);
+          setFormData({
+            email: "",
+            password: "",
+          });
+          await delay(1000);
           if(result.message == "can not find any email address"){
             Swal.fire({
               position: "top-end",
@@ -56,7 +58,7 @@ const Login = () => {
               timer: 1500,
             });
           }else if(result.message != "Wrong password" && result.message != "can not find any email address"){
-            navigate("/");
+            setUser(true)
             Swal.fire({
               position: "top-end",
               icon: "success",
@@ -64,6 +66,8 @@ const Login = () => {
               showConfirmButton: false,
               timer: 1500,
             });
+            await delay(2500)
+            navigate("/dashboard");
           }
       });
 
@@ -120,7 +124,7 @@ const Login = () => {
           </button>
           <div className="mt-5 flex gap-2">
             <p>Don&apos;t have any account</p>
-            <Link to={"/register"}>Register</Link>
+            <Link className="underline" to={"/register"}>Register</Link>
           </div>
         </form>
       </div>
