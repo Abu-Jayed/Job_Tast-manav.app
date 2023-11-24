@@ -1,12 +1,71 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import delay from "delay";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = () => {
-  const handleLogin = (e) => {
+
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const form = e.target;
-    const email = form.email.value;
-    const password = form.password.value;
-    console.log(email, password);
+    const email = formData.email
+    const password = formData.password
+    const login_info = {email,password}
+    console.log(login_info);
+
+
+    await fetch("http://localhost:5000/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(login_info),
+    })
+      .then((res) => res.json())
+      .then(async (result) => {
+          // console.log(result);
+          await delay(900)
+          // setFormData({
+          //   email: "",
+          //   password: "",
+          // });
+          // await delay(1500);
+          if(result.message == "can not find any email address"){
+            Swal.fire({
+              position: "top-end",
+              icon: "error",
+              title: "no email address found",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          } else if(result.message == "Wrong password"){
+            console.log(result);
+            Swal.fire({
+              position: "top-end",
+              icon: "error",
+              title: "wrong password",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }else if(result.message != "Wrong password" && result.message != "can not find any email address"){
+            navigate("/");
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "login success",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+      });
 
   };
   return (
@@ -34,6 +93,8 @@ const Login = () => {
             <input
               name="email"
               type="email"
+              onChange={handleInputChange}
+              value={formData.email}
               required
               placeholder="email"
               className="pl-8 border-b-2 font-display focus:outline-none focus:border-primarycolor transition-all duration-500 capitalize text-lg"
@@ -42,6 +103,8 @@ const Login = () => {
           <div className="relative mt-8">
             <i className="fa fa-lock absolute text-primarycolor text-xl"></i>
             <input
+            onChange={handleInputChange}
+            value={formData.password}
               required
               name="password"
               type="password"
