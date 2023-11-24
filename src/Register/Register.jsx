@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
+    const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
+    console.log(name, email, password);
   };
   return (
     <div className="max-w-6xl">
@@ -28,7 +29,19 @@ const Login = () => {
           <h2 className="my-8 font-display font-bold text-3xl text-gray-700 text-center">
             Welcome to you
           </h2>
+          {/* name */}
           <div className="relative">
+            <i className="fa fa-user absolute text-primarycolor text-xl"></i>
+            <input
+              name="name"
+              type="text"
+              required
+              placeholder="name"
+              className="pl-8 border-b-2 font-display focus:outline-none focus:border-primarycolor transition-all duration-500 capitalize text-lg"
+            />
+          </div>
+          {/* email */}
+          <div className="relative mt-4">
             <i className="fa fa-user absolute text-primarycolor text-xl"></i>
             <input
               name="email"
@@ -38,7 +51,8 @@ const Login = () => {
               className="pl-8 border-b-2 font-display focus:outline-none focus:border-primarycolor transition-all duration-500 capitalize text-lg"
             />
           </div>
-          <div className="relative mt-8">
+          {/* password */}
+          <div className="relative mt-4">
             <i className="fa fa-lock absolute text-primarycolor text-xl"></i>
             <input
               required
@@ -52,11 +66,13 @@ const Login = () => {
             type="submit"
             className="py-3 px-20 bg-[#F9A826] rounded-full text-black font-bold uppercase text-lg mt-4 transform hover:translate-y-1 transition-all duration-500"
           >
-            Login
+            Register
           </button>
           <div className="mt-5 flex gap-2">
-            <p>Don&apos;t have any account</p>
-            <Link to={"/register"}>Register</Link>
+            <p>Already Have an account?</p>
+            <Link className="underline" to={"/login"}>
+              Login
+            </Link>
           </div>
         </form>
       </div>
@@ -64,4 +80,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
