@@ -2,8 +2,8 @@
 const Home = () => {
   return (
     <div>
-      <h1 className='text-3xl'>This is our home</h1>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore aliquam ex facere et accusamus sapiente, nisi iure nam animi debitis vitae id in, perferendis nobis fugiat similique incidunt non dolor.
+      <h1 className='text-5xl text-center'>This is our home</h1>
+      <img className="mt-10 w-full" src="https://th.bing.com/th/id/OIP.dii-5X0EokR3W-YDZb7sxwHaMV" alt="" />
     </div>
   );
 };

@@ -67,8 +67,23 @@ const Login = () => {
               timer: 1500,
             });
             await delay(2500)
-            navigate("/dashboard");
-          }
+            await fetch('http://localhost:5000/jwt', {
+              method: 'POST',
+              headers: {
+                  'content-type': 'application/json'
+              },
+              body: JSON.stringify({email})
+          })
+          .then(res => res.json())
+          .then(data => {
+              console.log('jwt response', data);
+              // Warning: Local storage is not the best (second best place) to store access token
+              localStorage.setItem('login-access-token', data.token);
+          }).catch((error) => {
+            console.error('Error fetching JWT:', error);
+          })
+          navigate("/dashboard");
+          } else{localStorage.removeItem('login-access-token');}
       });
 
   };
@@ -101,7 +116,7 @@ const Login = () => {
               value={formData.email}
               required
               placeholder="email"
-              className="pl-8 border-b-2 font-display focus:outline-none focus:border-primarycolor transition-all duration-500 capitalize text-lg"
+              className="pl-8 border-b-2 font-display focus:outline-none focus:border-primarycolor transition-all duration-500  text-lg"
             />
           </div>
           <div className="relative mt-8">
@@ -113,7 +128,7 @@ const Login = () => {
               name="password"
               type="password"
               placeholder="password"
-              className="pl-8 border-b-2 font-display focus:outline-none focus:border-primarycolor transition-all duration-500 capitalize text-lg"
+              className="pl-8 border-b-2 font-display focus:outline-none focus:border-primarycolor transition-all duration-500  text-lg"
             />
           </div>
           <button

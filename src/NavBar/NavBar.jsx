@@ -6,6 +6,7 @@ const NavBar = () => {
   const { user,setUser } = useContext(AuthContext);
   const handleLogout = () => {
     setUser(false)
+    localStorage.removeItem("login-access-token")
   }
   return (
     <div>

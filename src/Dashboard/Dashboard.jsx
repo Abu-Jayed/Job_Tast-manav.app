@@ -1,13 +1,16 @@
 import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import delay from "delay";
 
-const Dashboard = () => {
-  const { user } = useContext(AuthContext);
 
-  if (!user) {
-    return <Navigate to={"/login"}></Navigate>;
-  }
+const Dashboard =  () => {
+  const { user,isLoggedIn } = useContext(AuthContext);
+
+  isLoggedIn()
+  
+
+  
   return (
     <>
       <h1>This is our Dashboard</h1>
