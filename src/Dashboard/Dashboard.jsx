@@ -4,12 +4,10 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 import delay from "delay";
 
 
-const Dashboard =  () => {
-  const { user,isLoggedIn } = useContext(AuthContext);
+const Dashboard = () => {
+  const { user } = useContext(AuthContext);
 
-  isLoggedIn()
-  
-
+  if(!user) return <Navigate to={"/login"}></Navigate>
   
   return (
     <>
