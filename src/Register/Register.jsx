@@ -75,7 +75,7 @@ const Register = () => {
               type="text"
               required
               placeholder="name"
-              className="pl-8 border-b-2 font-display focus:outline-none focus:border-primarycolor transition-all duration-500 capitalize text-lg"
+              className="pl-8 border-b-2 font-display focus:outline-none focus:border-primarycolor transition-all duration-500  text-lg"
             />
           </div>
           {/* email */}
@@ -88,7 +88,7 @@ const Register = () => {
               type="email"
               required
               placeholder="email"
-              className="pl-8 border-b-2 font-display focus:outline-none focus:border-primarycolor transition-all duration-500 capitalize text-lg"
+              className="pl-8 border-b-2 font-display focus:outline-none focus:border-primarycolor transition-all duration-500  text-lg"
             />
           </div>
           {/* password */}
@@ -101,7 +101,7 @@ const Register = () => {
               name="password"
               type="password"
               placeholder="password"
-              className="pl-8 border-b-2 font-display focus:outline-none focus:border-primarycolor transition-all duration-500 capitalize text-lg"
+              className="pl-8 border-b-2 font-display focus:outline-none focus:border-primarycolor transition-all duration-500  text-lg"
             />
           </div>
           <button
