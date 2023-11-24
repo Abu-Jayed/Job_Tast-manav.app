@@ -6,6 +6,7 @@ function App() {
 
   return <>
   <NavBar></NavBar>
+  <Outlet></Outlet>
   </>;
 }
 
