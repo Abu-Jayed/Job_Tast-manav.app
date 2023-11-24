@@ -1,13 +1,49 @@
-import { Link } from "react-router-dom";
+import delay from "delay";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Register = () => {
-  const handleLogin = (e) => {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const form = e.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const password = form.password.value;
-    console.log(name, email, password);
+
+    await fetch("http://localhost:5000/userRegister", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then(async (result) => {
+          console.log(result);
+          await delay(900)
+          setFormData({
+            name: "",
+            email: "",
+            password: "",
+          });
+          await delay(1500);
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          await delay(2500);
+          navigate("/");
+      });
   };
   return (
     <div className="max-w-6xl">
@@ -33,6 +69,8 @@ const Register = () => {
           <div className="relative">
             <i className="fa fa-user absolute text-primarycolor text-xl"></i>
             <input
+              onChange={handleInputChange}
+              value={formData.name}
               name="name"
               type="text"
               required
@@ -44,6 +82,8 @@ const Register = () => {
           <div className="relative mt-4">
             <i className="fa fa-user absolute text-primarycolor text-xl"></i>
             <input
+              value={formData.email}
+              onChange={handleInputChange}
               name="email"
               type="email"
               required
@@ -55,6 +95,8 @@ const Register = () => {
           <div className="relative mt-4">
             <i className="fa fa-lock absolute text-primarycolor text-xl"></i>
             <input
+              value={formData.password}
+              onChange={handleInputChange}
               required
               name="password"
               type="password"
